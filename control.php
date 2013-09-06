@@ -32,23 +32,26 @@ apiversion=9
 
 	
 	
-	public function commandH($cmd, $params, $issuer, $alias)
-    {
+	public function commandH($cmd, $args, $issuer){
 	$output = "";
-        switch ($cmd)
-        {
+	console($cmd);
+	$username = $issuer->username;
+        switch ($cmd){
             case "lobby":
-				$usermap = $issuer->level->getName();
+				$usermap = $issuer->entity->level->getName();
 				if($usermap !== "Lobby"){
 					if($usermap === "CreativeWorld"){
-					$issuer->setGamemode(1);
+					$issuer->setGamemode(0);
 					}
 				$this->api->console->run("tp ".$username." w:Lobby", "console", false);
+				$output .= "[Experiense]You teleported to Lobby.";
+				return $output;
+				break;
 				}else{
 				$output .= "[Experiense]You alredy in Lobby.";
+				return $output;
 				break;
 				}
-		return $output;
         }
     }
 	
